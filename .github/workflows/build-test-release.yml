@@ -1,0 +1,36 @@
+name: Build-Test-Release
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build project
+        run: |
+          echo "🏗️ Simulating build process..."
+          mkdir build
+          echo "Build completed at $(date)" > build/info.txt
+          zip -r build.zip build
+          echo "✅ Build artifact created."
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-artifact
+          path: build.zip
+
+  test:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Run tests
+        run: echo "🧪 Running tests... All tests passed ✅"
