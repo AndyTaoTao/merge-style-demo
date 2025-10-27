@@ -37,7 +37,6 @@ jobs:
           echo "🧪 Running tests..."
           echo "✅ All tests passed successfully!"
 
-  # 👇 故意讓 CI 失敗的實驗 Job（用於第11頁示範）
   fail_check:
     runs-on: ubuntu-latest
     needs: test
